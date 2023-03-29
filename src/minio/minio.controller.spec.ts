@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MinioController } from './minio.controller';
+var Minio = require('minio');
 
 describe('MinioController', () => {
   let controller: MinioController;

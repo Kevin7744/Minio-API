@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MinioModule } from 'nestjs-minio-client';
-import { CatsController } from './cats/cats.controller';
 import { MinioController } from './minio/minio.controller';
 var Minio = require('minio');
 
@@ -14,6 +13,6 @@ imports: [
       secretKey: 'minioadmin',
     })
   ],
-controllers: [CatsController, MinioController],
+controllers: [MinioController],
 })
 export class AppModule {}
