@@ -1,6 +1,9 @@
-import { Controller, Get, Injectable, Req, Post } from '@nestjs/common';
+import { Controller, Get, Injectable, Req, Post, Body } from '@nestjs/common';
 import { MinioService } from 'nestjs-minio-client';
 import { Request, Response } from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+
 var Minio = require('minio');
 
 @Controller('')
@@ -32,19 +35,21 @@ export class MinioController {
 
   // upload an object to a bucket
   @Post('uploadObject')
-    create() {
-      const bucketName = 'kevin';
-      const fileName = 'test.txt';
-      const metaData = {
-          'Content-Type': 'text/plain',
-          'X-Amz-Meta-Testing': 1234,
-          example: 5678,
-      };
-      const file = {
-          buffer: 'Hello World',
-      };
-    return this.minioService.client.putObject(bucketName, fileName, file.buffer, metaData);
+  async create(@Body() createObjectDto: CreateObjectDto) {
+    const { bucketName, fileName, filePath } = createObjectDto;
+  
+    const metaData = {
+      'Content-Type': 'application/octet-stream',
+      'X-Amz-Meta-Testing': 1234,
+      example: 5678,
+    };
+  
+    // Read the file from disk
+    const file = await fs.promises.readFile(filePath);
+  
+    return this.minioService.client.putObject(bucketName, fileName, file, metaData);
   }
+  
 
   // download an object as url from a bucket
   @Get('downloadObject')
