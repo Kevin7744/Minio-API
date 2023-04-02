@@ -3,6 +3,7 @@ import { MinioService } from 'nestjs-minio-client';
 import { Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CreateObjectDto } from './create-object.dto';
 
 var Minio = require('minio');
 
@@ -11,6 +12,8 @@ export class MinioController {
     constructor(private readonly minioService: MinioService) {
     console.log("Minio service reached");
   }
+
+  /*
   // list all buckets
   @Get('listBuckets')
   async listAllBuckets(@Req() req) {  
@@ -62,4 +65,6 @@ export class MinioController {
   async deleteObject(@Req() req) {
     return this.minioService.client.removeObject('kevin', 'test.txt');
   }
+  */
 }
+
