@@ -1,4 +1,3 @@
-import { MinioController } from 'src/minio/minio.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FileUploadService } from './file-upload.service';
 

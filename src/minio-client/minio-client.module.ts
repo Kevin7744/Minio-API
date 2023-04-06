@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MinioModule } from 'nestjs-minio-client';
-import { config } from '../minio-client/config';
 import { MinioClientService } from './minio-client.service';
-import { FileUploadModule } from 'src/file-upload/file-upload.module';
-
-
+import { MinioModule } from 'nestjs-minio-client';
+import { config } from './config';
 
 @Module({
-imports: [
+  imports: [
     MinioModule.register({
       endPoint: config.endPoint,
       port: config.port,
@@ -17,6 +14,6 @@ imports: [
     })
   ],
   providers: [MinioClientService],
-  exports: [MinioClientService],
+  exports: [MinioClientService]
 })
 export class MinioClientModule {}

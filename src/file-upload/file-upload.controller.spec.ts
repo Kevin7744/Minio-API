@@ -1,20 +1,18 @@
-
-
 import { Test, TestingModule } from '@nestjs/testing';
-import { FileUploadService } from './file-upload.service';
+import { FileUploadController } from './file-upload.controller';
 
-describe('FileUploadService', () => {
-  let service: FileUploadService;
+describe('FileUploadController', () => {
+  let controller: FileUploadController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FileUploadService],
+      controllers: [FileUploadController],
     }).compile();
 
-    service = module.get<FileUploadService>(FileUploadService);
+    controller = module.get<FileUploadController>(FileUploadController);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(controller).toBeDefined();
   });
 });
