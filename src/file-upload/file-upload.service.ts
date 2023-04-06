@@ -1,14 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { MinioClientService } from 'src/minio-client.service';
+import { MinioService } from 'nestjs-minio-client';
+import { MinioClientService } from 'src/minio-client/minio-client.service';
 import { BufferedFile } from 'src/minio-client/file.model';
+import { MinioController } from 'src/minio/minio.controller';
+var Minio = require('minio');
 
 
 
 @Injectable()
 export class FileUploadService {
-    contructor (
-        private minioClientService: MinioClientService
-    ) {}
+    private minioClientService: MinioClientService
+
+    constructor (minioClientService: MinioClientService
+    ) 
+    {
+        this.minioClientService = minioClientService;
+    }
 
     async uploadSingle(image: BufferedFile) {
 

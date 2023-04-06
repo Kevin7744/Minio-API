@@ -1,8 +1,8 @@
-export interface BufferFile 
+export interface BufferedFile 
 {
     fieldname: string;
     originalname: string;
-    encodinmg: string;
+    encoding: string;
     mimetype: string;
     size: number;
     buffer: Buffer | string;

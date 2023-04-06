@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MinioModule } from 'nestjs-minio-client';
-import { MinioController } from './minio/minio.controller';
-import { config } from './config';
-var Minio = require('minio');
+import { config } from '../minio-client/config';
+import { MinioClientService } from './minio-client.service';
+import { FileUploadModule } from 'src/file-upload/file-upload.module';
+
+
 
 @Module({
 imports: [
@@ -14,6 +16,7 @@ imports: [
       secretKey: config.secretKey,
     })
   ],
-controllers: [MinioController],
+  providers: [MinioClientService],
+  exports: [MinioClientService],
 })
-export class AppModule {}
+export class MinioClientModule {}
