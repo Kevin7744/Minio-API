@@ -4,6 +4,7 @@ import { Stream } from 'stream';
 import { config } from "./config";
 import { BufferedFile } from "./file.model";
 import  * as crypto from "crypto";
+import { Express } from 'express';
 
 @Injectable()
 export class MinioClientService {
@@ -21,6 +22,7 @@ export class MinioClientService {
   }
 
   public async upload(file: BufferedFile, baseBucket: string = this.baseBucket) {
+    console.log('file:', file);
     if(!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
       throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
     }
@@ -34,7 +36,7 @@ export class MinioClientService {
     let filename = hashedFileName + ext
     const fileName: string = `${filename}`;
     const fileBuffer = file.buffer;
-    this.client.putObject(baseBucket,fileName,fileBuffer,metaData, function(err, res) {
+    this.client.putObject(baseBucket,fileName,fileBuffer, file.size, function(err, res) {
       if(err) throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
     })
 
@@ -43,9 +45,9 @@ export class MinioClientService {
     }
   }
 
-  async delete(objetName: string, baseBucket: string = this.baseBucket) {
-    this.client.removeObject(baseBucket, objetName, function(err, res) {
-      if(err) throw new HttpException("Oops Something wrong happend", HttpStatus.BAD_REQUEST)
+  async delete(objectName: string, baseBucket: string = this.baseBucket) {
+    this.client.removeObject(baseBucket, objectName,function(err){
+      if(err) throw new HttpException("Oops Something wrong happened", HttpStatus.BAD_REQUEST)
     })
   }
 }

@@ -2,6 +2,7 @@ import { Controller, Post, UseInterceptors, UploadedFile, UploadedFiles } from '
 import { FileInterceptor, FileFieldsInterceptor } from '@nestjs/platform-express'
 import { FileUploadService } from './file-upload.service';
 import { BufferedFile } from 'src/minio-client/file.model';
+import { Express } from 'express';
 
 @Controller('file-upload')
 export class FileUploadController {
@@ -14,7 +15,7 @@ export class FileUploadController {
     async uploadSingle(
         @UploadedFile() image: BufferedFile
         ) {
-        return await this.fileUploadService.uploadSingle(image)
+        return this.fileUploadService.uploadSingle(image)
         }
     @Post('many')
     @UseInterceptors(FileFieldsInterceptor([

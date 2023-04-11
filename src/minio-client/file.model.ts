@@ -3,7 +3,7 @@ export interface BufferedFile
     fieldname: string;
     originalname: string;
     encoding: string;
-    mimetype: string;
+    mimetype: AppMimeType;
     size: number;
     buffer: Buffer | string;
 }
@@ -20,12 +20,12 @@ export interface StoredFileMetadata
     id: string;
     name: string;
     encoding: string;
-    mimetype: string;
+    mimetype: AppMimeType;
     size: number;
     uploadedAt: Date;
-    fileSrc: string;
+    fileSrc?: string;
 }
 
 export type AppMimeType = 
-| 'Image/png'
-| 'Image/jpeg';
+| 'image/png'
+| 'image/jpeg';
