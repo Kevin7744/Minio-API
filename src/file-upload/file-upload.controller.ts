@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, UploadedFiles, Get } from '@nestjs/common';
 import { FileInterceptor, FileFieldsInterceptor } from '@nestjs/platform-express'
 import { FileUploadService } from './file-upload.service';
 import { BufferedFile } from 'src/minio-client/file.model';
@@ -27,4 +27,10 @@ export class FileUploadController {
         ) {
           return this.fileUploadService.uploadMany(files)
         }
+      // Get the image from the minio server
+      @Get('image')
+      async getImage() {
+        return this.fileUploadService.getImage()
+      }
+
 }
