@@ -49,9 +49,12 @@ export class MinioClientService {
       if(err) throw new HttpException("Oops Something wrong happened", HttpStatus.BAD_REQUEST)
     })
   }
-
-  public async getImage() {
-    let file = await this.client.getObject(config.bucketName, 'b3d0a3b3f1d7f1c1d0b8c4b8f2b2e9e9.png')
-    return file
+  
+  public async get(objectName: string, baseBucket: string = this.baseBucket) {
+    let url = `${config.endPoint}:${config.port}/${config.bucketName}/${objectName}`
+    return {
+      url: url
+    }
   }
+
 }
