@@ -27,11 +27,9 @@ export class FileUploadController {
         ) {
           return this.fileUploadService.uploadMany(files)
         }
-      // Get the image from the minio server an return it as an url
-      @Get('image')
-      async getImage() {
-        return this.fileUploadService.getImage()
-      }
+   
+
+
       
      
 }

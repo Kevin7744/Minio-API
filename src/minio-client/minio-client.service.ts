@@ -50,11 +50,10 @@ export class MinioClientService {
     })
   }
   
-  public async get(objectName: string, baseBucket: string = this.baseBucket) {
+  public async download(objectName: string, baseBucket: string = this.baseBucket) {
     let url = `${config.endPoint}:${config.port}/${config.bucketName}/${objectName}`
     return {
       url: url
     }
   }
-
 }

@@ -30,12 +30,6 @@ export class FileUploadService {
             message: "Images uploaded successfully"
         }
     }
-    //get the image from the minio server as an url
-    async getImage() {
-        let image = await this.minioClientService.get('image.jpg')
-        return {
-            image_url: image.url,
-            message: "Image retrieved successfully"
-        }
-    }
+   
+   
 }
