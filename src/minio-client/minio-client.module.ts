@@ -8,7 +8,7 @@ import { config } from './config';
     MinioModule.register({
       endPoint: config.endPoint,
       port: config.port,
-      useSSL: config.useSSL,
+      useSSL: false,
       accessKey: config.accessKey,
       secretKey: config.secretKey,
     })

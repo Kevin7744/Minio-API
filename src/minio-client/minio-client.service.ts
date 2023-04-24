@@ -22,7 +22,8 @@ export class MinioClientService {
   }
 
   public async upload(file: BufferedFile, baseBucket: string = this.baseBucket) {
-    if(!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
+    if(!file || !(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
+      this.logger.debug('Mimetype: ${file.mimetype}');
       throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
     }
     let temp_filename = Date.now().toString()
@@ -35,7 +36,7 @@ export class MinioClientService {
     let filename = hashedFileName + ext
     const fileName: string = `${filename}`;
     const fileBuffer = file.buffer;
-    this.client.putObject(baseBucket,fileName,fileBuffer, file.size, function(err, res) {
+    this.client.putObject(baseBucket,fileName,fileBuffer, file.size , function(err, res) {
       if(err) throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
     })
 
@@ -44,7 +45,7 @@ export class MinioClientService {
     }
   }
 
-  public async delete(objectName: string, baseBucket: string = this.baseBucket) {
+  async delete(objectName: string, baseBucket: string = this.baseBucket) {
     this.client.removeObject(baseBucket, objectName,function(err){
       if(err) throw new HttpException("Oops Something wrong happened", HttpStatus.BAD_REQUEST)
     })
